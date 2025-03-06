@@ -8,7 +8,7 @@ export const getPopularMovies = async () => {
     const response = await axios.get(
       `${BASE_URL}/movie/popular?api_key=${API_KEY}`
     );
-    return response.data, console.log(response.data);
+    return response.data.results;
   } catch (error) {
     console.error(`api has error => ${error}`);
   }

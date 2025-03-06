@@ -6,7 +6,7 @@ import Card from "./Card";
 
 const Home = () => {
   const [movie, setMovie] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
   useEffect(() => {
@@ -24,14 +24,13 @@ const Home = () => {
   console.log(movie);
 
   return (
-    <div>
-      <h1>Popular Movies</h1>
-      {loading ? (
-        <div>Loading ...</div>
+    <div className="">
+      {loading === true ? (
+        <div className="text-white text-2xl mx-auto">Loading ...</div>
       ) : (
         <div>
           {movie.map((data) => (
-            <Card data={data} id={data.id} />
+            <Card data={data} key={data.id} />
           ))}
         </div>
       )}
