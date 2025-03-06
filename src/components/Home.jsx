@@ -1,6 +1,8 @@
 import React from "react";
-import { getPopularMovies } from "../services/api";
+import getPopularMovies from "../services/api";
 import { useState, useEffect } from "react";
+import Container from "./Container";
+
 const Home = () => {
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,8 +30,10 @@ const Home = () => {
       ) : (
         <div>{movie.map((data) => data)}</div>
       )}
+
+
+
+      <Container />
     </div>
   );
 };
-
-export default Home;
