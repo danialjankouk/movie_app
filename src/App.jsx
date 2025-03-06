@@ -7,9 +7,9 @@ function App() {
     <>
       <Navbar />
       <Outlet />
-      <Routes>
+      {/* <Routes>
         <Route path="/home" element={<Home />} />
-      </Routes>
+      </Routes> */}
     </>
   );
 }

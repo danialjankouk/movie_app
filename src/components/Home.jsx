@@ -1,7 +1,8 @@
 import React from "react";
-import getPopularMovies from "../services/api";
+import {getPopularMovies} from "../services/api";
 import { useState, useEffect } from "react";
 import Container from "./Container";
+import Card from "./Card";
 
 const Home = () => {
   const [movie, setMovie] = useState([]);
@@ -15,7 +16,7 @@ const Home = () => {
         setMovie(response);
       } catch (error) {
         console.log(error);
-        setErr("faild to load");
+        setErr("fail to load");
       }
     };
     loadPopularMovie();
@@ -28,12 +29,16 @@ const Home = () => {
       {loading ? (
         <div>Loading ...</div>
       ) : (
-        <div>{movie.map((data) => data)}</div>
+        <div>
+          {movie.map((data) => (
+            <Card data={data} id={data.id} />
+          ))}
+        </div>
       )}
 
-
-
-      <Container />
+      {/* <Container /> */}
     </div>
   );
 };
+
+export default Home;
