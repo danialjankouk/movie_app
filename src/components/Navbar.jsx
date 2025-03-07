@@ -1,5 +1,5 @@
-import './Navbar.css'
-import { NavLink } from 'react-router'
+import "./Navbar.css";
+import { NavLink } from "react-router";
 function Navbar() {
   return (
     <nav className="flex justify-between px-[5%] gap-10 items-centerh-20 my-background shadow-2xl">
@@ -10,7 +10,7 @@ function Navbar() {
             <NavLink to='/favorite' className="text-xl" >Favorite movie</NavLink>
         </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

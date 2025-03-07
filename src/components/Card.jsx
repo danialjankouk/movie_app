@@ -30,7 +30,7 @@ function Card({ onAddfavor, data, isFavorite }) {
       <p className='m-2 text-white font-bold'>{data.title}</p>
       <p className='m-2 text-gray-500'>{data.release_date.split("-")[0]}</p>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;
