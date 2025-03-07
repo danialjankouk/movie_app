@@ -24,11 +24,11 @@ const Home = () => {
   console.log(movie);
 
   return (
-    <div className="">
+    <div className="w-full px-8 gap-4 py-2">
       {loading === true ? (
         <div className="text-white text-2xl mx-auto">Loading ...</div>
       ) : (
-        <div>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 w-full box-border">
           {movie.map((data) => (
             <Card data={data} key={data.id} />
           ))}

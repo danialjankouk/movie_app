@@ -11,7 +11,7 @@ function Card({ onAddfavor, data }) {
         <img
           src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
           alt={data.title}
-          className="rounded w-full"
+          className="rounded "
         />
         {/* <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300"></div> */}
         <IoHeartCircleSharp
