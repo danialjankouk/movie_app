@@ -1,5 +1,5 @@
 import React from "react";
-import {getPopularMovies} from "../services/api";
+import { getPopularMovies, searchMovies } from "../services/api";
 import { useState, useEffect } from "react";
 import Container from "./Container";
 import Card from "./Card";
@@ -8,6 +8,7 @@ const Home = () => {
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const loadPopularMovie = async () => {
@@ -23,8 +24,44 @@ const Home = () => {
   }, []);
   console.log(movie);
 
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return
+    if (loading) return
+
+    setLoading(true)
+    try {
+        const searchResults = await searchMovies(searchQuery)
+        setMovie(searchResults)
+        setErr(null)
+    } catch (err) {
+        console.log(err)
+        setErr("Failed to search movies...")
+    } finally {
+        setLoading(false)
+    }
+  };
+
   return (
     <div className="w-full px-8 gap-4 py-2">
+
+      <form onSubmit={handleSearch} className="flex flex-row justify-center items-center gap-x-2 p-2">
+        <input
+          type="text"
+          placeholder="Search for movies..."
+          className="bg-white p-0.5 rounded-sm border-blue-900 border-2 text-blue-900"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button type="submit" className="bg-green-500 rounded-md p-0.5 font-bold text-white">
+          Search
+        </button>
+      </form>
+
+      {err && <div className="error-message">{err}</div>}
+
+
       {loading === true ? (
         <div className="text-white text-2xl mx-auto">Loading ...</div>
       ) : (
