@@ -6,7 +6,7 @@ function Navbar() {
          
         <div className="text-xl text-blue-300 flex justify-center  items-center cursor-pointer"> movie app</div>
         <div className="flex gap-10 justify-center items-center text-blue-300">
-            <NavLink to='/home' className="text-xl">Home</NavLink>
+            <NavLink to='/' className="text-xl">Home</NavLink>
             <NavLink to='/favorite' className="text-xl" >Favorite movie</NavLink>
         </div>
     </nav>
