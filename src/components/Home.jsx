@@ -1,30 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { getPopularMovies, searchMovies } from "../services/api";
-import { useState, useEffect } from "react";
-import Container from "./Container";
 import Card from "./Card";
 import { useMovies } from "../contexts/MoviesContext";
 
 const Home = () => {
-  const [movie, setMovie] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { handleAddFavorite } = useMovies();
+  const { handleAddFavorite, favoriteMovies } = useMovies();
 
   useEffect(() => {
-    const loadPopularMovie = async () => {
+    const loadPopularMovies = async () => {
       try {
         const response = await getPopularMovies();
-        setMovie(response);
+        setMovies(response);
       } catch (error) {
         console.log(error);
-        setErr("fail to load");
+        setErr("Failed to load movies");
       }
     };
-    loadPopularMovie();
+    loadPopularMovies();
   }, []);
-  console.log(movie);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -34,7 +31,7 @@ const Home = () => {
     setLoading(true);
     try {
       const searchResults = await searchMovies(searchQuery);
-      setMovie(searchResults);
+      setMovies(searchResults);
       setErr(null);
     } catch (err) {
       console.log(err);
@@ -46,10 +43,7 @@ const Home = () => {
 
   return (
     <div className="w-full px-8 gap-4 py-2">
-      <form
-        onSubmit={handleSearch}
-        className="flex flex-row justify-center items-center gap-x-2 p-2"
-      >
+      <form onSubmit={handleSearch} className="flex justify-center items-center gap-x-2 p-2">
         <input
           type="text"
           placeholder="Search for movies..."
@@ -57,32 +51,27 @@ const Home = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button
-          type="submit"
-          className="bg-green-500 rounded-md p-0.5 font-bold text-white"
-        >
+        <button type="submit" className="bg-green-500 rounded-md p-0.5 font-bold text-white">
           Search
         </button>
       </form>
 
-      {err && <div className="error-message">{err}</div>}
+      {err && <div className="text-red-500">{err}</div>}
 
-      {loading === true ? (
+      {loading ? (
         <div className="text-white text-2xl mx-auto">Loading ...</div>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 w-full box-border">
-          {movie.map((data) => (
+          {movies.map((data) => (
             <Card
-              data={data}
               key={data.id}
+              data={data}
               onAddfavor={handleAddFavorite}
-              isFavorite={false}
+              isFavorite={favoriteMovies.some((fav) => fav.id === data.id)} // بررسی علاقه‌مندی
             />
           ))}
         </div>
       )}
-
-      {/* <Container /> */}
     </div>
   );
 };
